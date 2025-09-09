@@ -98,11 +98,15 @@ class PlantNetwork:
                                     primclarinit.X_BH, primclarinit.X_BA, primclarinit.X_P)
         
         elif node.type == ModuleType.ASM1_REACTOR:
-            volume = params.get('volume', asm1init.V_R1)
-            kla = params.get('kla', asm1init.KLA1)
+            volume = params.get('volume', asm1init.VOL1)  # Use VOL1 as default
+            kla = params.get('kla', 240.0)
             temp = params.get('temperature', 15.0)
-            module = ASM1Reactor(volume)
-            module.kla = kla
+            y0 = asm1init.YINIT1.copy()  # Use reactor 1 initial conditions
+            asm1par = asm1init.PAR1.copy()  # Use reactor 1 parameters
+            carb = 0.0  # No carbon addition by default
+            csourceconc = 0.0
+            module = ASM1Reactor(kla, volume, y0, asm1par, carb, csourceconc, 
+                               tempmodel=False, activate=False)
         
         elif node.type == ModuleType.SETTLER:
             area = params.get('area', settler1dinit.AS)
