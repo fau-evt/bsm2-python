@@ -121,14 +121,15 @@ class PID:
         """
         dt_arr = np.array([0, dt])
         self.error = self.k * (self.setpoint - signal)
-        self.integral = self.error / self.t_i * (dt_arr[1] - dt_arr[0])
+        self.integral += self.error / self.t_i * (dt_arr[1] - dt_arr[0])
         self.derivative = self.k * self.t_d * (self.error - self.prev_error) / (dt_arr[1] - dt_arr[0])
         self.prev_error = self.error
         if self.use_antiwindup:
             self.aw = (self.prev_lim - self.prev_signal) / self.t_t * (dt_arr[1] - dt_arr[0])
         else:
             self.aw = 0
-        control_signal = self.error + self.integral + self.derivative + self.offset + self.aw + inject
+        self.integral += self.aw
+        control_signal = self.error + self.integral + self.derivative + self.offset + inject
         self.prev_signal = control_signal
         control_signal = max(control_signal, self.min_value)
         control_signal = min(control_signal, self.max_value)
