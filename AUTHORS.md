@@ -4,3 +4,4 @@
 * Maike Böhm
 * Lukas Meier
 * Nick Salomon
+* [Touko Ursin](https://github.com/ToukoUrsin)
