@@ -529,7 +529,7 @@ class BSM2Base(BSMBase):
                 self.evaluator.add_new_data('iqi', 'iqi')
                 self.evaluator.add_new_data('eqi', 'eqi')
                 self.evaluator.add_new_data('oci', 'oci')
-                self.evaluator.add_new_data('oci_final', 'oci_final')
+                self.evaluator.add_new_data('oci_final', 'oci_final', plot=False)
             if self.evaltime[0] <= self.simtime[i] <= self.evaltime[1]:
                 self.evaluator.update_data('iqi', self.iqi_all[i], self.simtime[i])
                 self.evaluator.update_data('eqi', self.eqi_all[i], self.simtime[i])
